@@ -28,12 +28,15 @@ def find_beta(u):
 
 def householder_transformation(A):
     n = len(A)
-
+    
     for k in range(0, n-1):
         u = []
         for i in range(k, n):
             u.append(A[i][k])
 
+        u = householder_vector(u)
+        beta = 2/find_beta(u)
+        
         b = []
         for i in range(k, n):
             t = []
@@ -41,19 +44,24 @@ def householder_transformation(A):
                 t.append(A[i][j])
             b.append(t)
 
-
-        u = householder_vector(u)
-        # print(u)
-
-        beta = 2/find_beta(u)
-        u_t =  np.asmatrix(u)
+        u_t = np.matrix(u)
         u = u_t.transpose()
+        u = np.matmul(u, u_t)
+        u = beta*u
+        u = np.matmul(u, b)
+        b = b - u
+        b = b.tolist()
 
-        t = np.matmul(u, u_t)
-        t = np.matmul(t, b)
-        t = beta*t
+        for i in range(0, len(b)):
+            for j in range(0, len(b[0])):
+                val = round(b[i][j], 4)
+                if val == -0.0 or val == 0.0:
+                    A[i+k][j+k] = 0
 
-        print(t)
+                else:
+                    A[i+k][j+k] = val
+
+    print(A)     
         
 
 if __name__ == "__main__":
