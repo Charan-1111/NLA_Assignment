@@ -56,8 +56,7 @@ def QR_factorization_using_MGS(A):
             R[k][j] = find_product(A, k, j)
             make_transform(A, j, k, R[k][j])
 
-    A = np.matrix(A)
-    return (A, R)
+    return A, R
 
 if __name__ == '__main__':
     n = int(input("Enter the dimension of the matrix A: "))
@@ -65,8 +64,9 @@ if __name__ == '__main__':
     for i in range(n):
         t = [float(j) for j in input().split()]
         A.append(t)
-    
-    (Q, R) = QR_factorization_using_MGS(A)
+
+    A = np.array(A)
+    Q, R = QR_factorization_using_MGS(A)
 
     print("============ Orthogonal Matrix Q after transformation ============")
     print(Q)

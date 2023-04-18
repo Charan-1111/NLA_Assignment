@@ -10,7 +10,7 @@ def find_norm(u):
     return round(math.sqrt(res),4)
 
 def sign(a):
-    if a==0:
+    if a==0 or a == 0.0 or a == -0.0:
         return 1
     return a/abs(a)
 
@@ -28,7 +28,7 @@ def find_beta(u):
 
 def householder_transformation(A):
     n = len(A)
-    
+
     for k in range(0, n-1):
         u = []
         for i in range(k, n):
@@ -36,7 +36,7 @@ def householder_transformation(A):
 
         u = householder_vector(u)
         beta = 2/find_beta(u)
-        
+
         b = []
         for i in range(k, n):
             t = []
@@ -61,7 +61,7 @@ def householder_transformation(A):
                 else:
                     A[i+k][j+k] = val
 
-    print(A)     
+    return A
         
 
 if __name__ == "__main__":
@@ -69,9 +69,11 @@ if __name__ == "__main__":
 
     A = []
     for i in range(0,n):
-        t = [int(j) for j in input().split()]
+        t = [float(j) for j in input().split()]
         A.append(t)
 
     # print(A)
-
-    householder_transformation(A)
+    A = np.array(A)
+    np.set_printoptions(precision=4, suppress=True)
+    A = householder_transformation(A)
+    print(A)

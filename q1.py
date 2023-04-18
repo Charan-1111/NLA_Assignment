@@ -117,7 +117,7 @@ if __name__ == '__main__':
     # Taking the input matix A
     M = []
     for i in range(0,n):
-        t = [int(j) for j in input().split()]
+        t = [float(j) for j in input().split()]
         M.append(t)
 
     B = []

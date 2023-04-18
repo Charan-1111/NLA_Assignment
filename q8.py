@@ -33,4 +33,6 @@ if __name__ == '__main__':
     print(Q)
     print('===== R after factorization =====')
     print(R)
-    print(np.matmul(Q, R))
+
+    # basis of the null space of the given matrix is
+    print(Q[:, -1])
